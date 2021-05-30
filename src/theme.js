@@ -1,4 +1,6 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import '@fontsource/roboto';
+import "@fontsource/work-sans"
 
 const theme = createMuiTheme({
   palette: {
@@ -10,18 +12,18 @@ const theme = createMuiTheme({
       checkbox: '#3B4256',
     },
     primary: {
-      lighter: '#F5F5F5',
-      light: '#DFDFDF',
-      main: '#9E9E9E',
-      dark: '#646464',
-      darker: '#212121',
-    },
-    secondary: {
       lighter: '#E7F4FF',
       light: '#A0D4FF',
-      main: '#007EE6',
+      main: '#27C7FE',
       dark: '#0060AB',
       darker: '#004377',
+    },
+    secondary: {
+      lighter: '#333333',
+      light: '#DFDFDF',
+      main: '#F5F5F5',
+      dark: '#646464',
+      darker: '#212121',
     },
     red: {
       lighter: '#F79C94',
@@ -34,8 +36,8 @@ const theme = createMuiTheme({
       darker: '#4C9958',
     },
     text: {
-      primary: '#212121',
-      secondary: '#9E9E9E',
+      primary: '#333333',
+      secondary: '#FFFFFF',
     },
     background: {
       default: '#F5F5F5',
@@ -44,8 +46,7 @@ const theme = createMuiTheme({
   typography: {
     useNextVariants: true,
     fontFamily: [
-      'Source Sans Pro',
-      'Playfair Display',
+      'Work Sans',
     ].join(','),
     fontSize: 16,
   },
@@ -57,8 +58,7 @@ const theme = createMuiTheme({
         },
         body: {
           fontFamily: [
-            'Source Sans Pro',
-            'Playfair Display',
+            'Work Sans',
           ].join(','),
         },
         '*::-webkit-scrollbar': {
@@ -76,17 +76,32 @@ const theme = createMuiTheme({
     },
     MuiTypography: {
       h1: {
-        fontFamily: 'Playfair Display',
-        fontSize: 32,
-        fontWeight:600,
-        '@media (max-width: 576px)': {
+        fontSize: 36,
+        fontWeight: 600,
+        '@media (max-width: 1024px)': {
           fontSize:28
-        }
+        },
+      },
+      h2: {
+        fontSize:30,
+        '@media (max-width: 1024px)': {
+          fontSize:22
+        },
+      },
+      h3: {
+        fontSize:24,
+        '@media (max-width: 1024px)': {
+          fontSize:20
+        },
+      },
+      h4: {
+        fontSize:18,
+      },
+      h5: {
+        fontSize:15,
       },
       h6: {
         fontSize: 14,
-        lineHeight: '23px',
-        color: '#3B4256',
         fontWeight:400
       },
       subtitle1: {
@@ -95,9 +110,10 @@ const theme = createMuiTheme({
         lineHeight: '25px',
       },
       subtitle2: {
-        fontSize: 20,
-        lineHeight: '25px',
+        fontFamily:'Roboto',
         fontWeight: 'normal',
+        fontSize: '12',
+        color: '#333333'
       },
       caption: {
         fontSize: 16,
@@ -107,13 +123,16 @@ const theme = createMuiTheme({
         display: 'inline-block',
       },
       body1: {
-        fontSize: 16,
-        lineHeight: '24px',
+        fontFamily:'Roboto',
+        fontSize:14,
+        fontWeight: 400,
+        color:'#FFFFFF'
       },
       body2: {
-        fontSize: 16,
-        lineHeight: '24px',
-        fontWeight: 600,
+        fontSize: 15,
+        fontWeight: 500,
+        textDecoration:'underline',
+        color:'#333333',
       }
     },
     MuiFormControl: {

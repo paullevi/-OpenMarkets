@@ -11,17 +11,17 @@ const useOutlinedInputStyles = makeStyles(theme => ({
   root: {
     borderRadius: '0px',
     "& $notchedOutline": {
-      borderColor: theme.palette.primary.main,
+      borderColor: theme.palette.secondary.lighter,
     },
     "&:hover $notchedOutline": {
-      border: '1px solid #007EE6',
+      border: '1px solid #9d9d9d',
     },
     "&$focused $notchedOutline": {
-      border: '1px solid #007EE6',
+      border: '1px solid #9d9d9d',
     }
   },
   input: {
-    padding: '9px 12px 10px 12px',
+    padding: '10px 12px 10px 12px',
     fontSize: 16,
     lineHeight: '22px',
     letterSpacing: '0.01rem',

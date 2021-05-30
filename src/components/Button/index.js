@@ -40,12 +40,18 @@ const useStyles = makeStyles(theme => ({
   },
   contained: {
     fill: theme.palette.common.white,
-    color: 'white !important',
+    color: props => {
+      if (props.color === "secondary") {
+        return theme.palette.text.primary
+      } else {
+        return theme.palette.text.secondary
+      }
+    },
     backgroundColor: props => {
       if (props.color === "secondary") {
         return theme.palette.secondary.main
       } else {
-        return props.customColor
+        return theme.palette.primary.main
       }
     },
     '&:hover': {
@@ -98,6 +104,7 @@ const useStyles = makeStyles(theme => ({
   },
   startIcon: {
     fill: props => props.customColor,
+    width:24
   },
   endIcon: {
     fill: props => props.customColor,
@@ -116,8 +123,6 @@ const useStyles = makeStyles(theme => ({
   textSizeLarge: {
     fontSize: 18,
     lineHeight: '24px',
-  },
-  iconSizeSmall: {
   },
 }));
 
