@@ -13,6 +13,11 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import { ReactComponent as GoogleIcon } from '../../icon/google.svg'
 import clsx from  'clsx';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import PersonIcon from '@material-ui/icons/Person';
+import LockIcon from '@material-ui/icons/Lock';
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,9 +26,6 @@ const useStyles = makeStyles((theme) => ({
     '@media (max-width: 1024px)': {
       display:'block'
     }
-  },
-  subtitle: {
-    marginBottom: 28,
   },
   signup: {
     marginTop: 50,
@@ -34,17 +36,6 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       color:'#27C7FE'
     },
-  },
-  textButton: {
-    fontSize: 14,
-    lineHeight: '22px',
-    color: theme.palette.text.primary,
-    textTransform: 'none',
-    letterSpacing: '0.01rem',
-    cursor: 'pointer',
-  },
-  fieldMargin: {
-    marginBottom: 15,
   },
   forgotButton: {
     fontSize: 16,
@@ -221,7 +212,8 @@ const useStyles = makeStyles((theme) => ({
   },
   chageColor: {
     backgroundColor:'#9d9d9d',
-},
+  },
+
 }));
 
 const schema = Yup.object().shape({
@@ -235,6 +227,23 @@ export default function CPLoinForm({
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [toggleSelect, setToggleSelect] = useState(true);
+
+  const [values, setValues] = useState({
+    password: '',
+    showPassword: false,
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const onChangeView = () => {
     setToggleSelect(!toggleSelect);
@@ -263,27 +272,36 @@ export default function CPLoinForm({
                 placeholder="Email address"
                 value={values.email}
                 fullWidth
+                onChange={handleChange}
                 error={errors.email && touched.email}
                 helperText={errors.email && touched.email && errors.email}
-                onChange={handleChange}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <PersonIcon />
+                  </InputAdornment>
+                }
                 onBlur={handleBlur}
                 bottomMargin={12}
               />
               <TextField
                 type={showPassword ? 'text' : 'password'}
-                id="password"
                 value={values.password}
                 placeholder="Password"
-                className={classes.textInput}
-                onChange={handleChange}
+                fullWidth
+                onChange={handleChange('password')}
                 onBlur={handleBlur}
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                }
                 endAdornment={
                   <InputAdornment position="end">
                     <span
                       className={classes.textButton}
                       onClick={() => setShowPassword(!showPassword)}
                     >
-                      {showPassword ? 'Hide' : 'Show'}
+                      {showPassword ? <VisibilityOff/> : <Visibility/>}
                     </span>
                   </InputAdornment>
                 }
