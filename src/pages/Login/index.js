@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import * as Yup from 'yup';
+import { Formik } from 'formik';
 import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import TextField from '../../components/TextField';
-import Button from '../../components/Button';
-import { Formik } from 'formik';
+import * as Yup from 'yup';
+import clsx from  'clsx';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
-import { ReactComponent as GoogleIcon } from '../../icon/google.svg'
-import clsx from  'clsx';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import LockIcon from '@material-ui/icons/Lock';
+import PersonIcon from '@material-ui/icons/Person';
+import Typography from '@material-ui/core/Typography';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
-import PersonIcon from '@material-ui/icons/Person';
-import LockIcon from '@material-ui/icons/Lock';
-
+import { ReactComponent as GoogleIcon } from '../../icon/google.svg'
+import TextField from '../../components/TextField';
+import Button from '../../components/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
   bgImageWrapper:{
     zIndex: 0,
     position: 'absolute',
+    height: '100vh'
   },
   bgImage: {
     width:'100%',
@@ -217,8 +217,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const schema = Yup.object().shape({
-  email: Yup.string().email('Invalid email. Please try again').required('Required'),
-  password: Yup.string().min(6, 'Minimum 6 characters required!').required('Required'),
+  email: Yup.string().email('Invalid email. Please try again').required('Email is required'),
+  password: Yup.string().min(6, 'Minimum 6 characters required!').required('Password is required'),
 });
 
 export default function CPLoinForm({
@@ -227,23 +227,6 @@ export default function CPLoinForm({
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [toggleSelect, setToggleSelect] = useState(true);
-
-  const [values, setValues] = useState({
-    password: '',
-    showPassword: false,
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
 
   const onChangeView = () => {
     setToggleSelect(!toggleSelect);
@@ -284,6 +267,7 @@ export default function CPLoinForm({
                 bottomMargin={12}
               />
               <TextField
+                id="password"
                 type={showPassword ? 'text' : 'password'}
                 value={values.password}
                 placeholder="Password"
@@ -307,7 +291,6 @@ export default function CPLoinForm({
                 }
                 error={errors.password && touched.password}
                 helperText={errors.password && touched.password && errors.password}
-                fullWidth
                 bottomMargin={10}
               />
               <span
@@ -345,17 +328,17 @@ export default function CPLoinForm({
               </FormHelperText>
             </form>
           )}
-          </Formik>
-          <Typography
-            style={{marginTop:50}}
-            variant="body2"
-            align="center"
-          >
-            <Link to="/signup" className={classes.signup}>
-              New user? Sign up here.
-            </Link>
-          </Typography>
-        </div>
+        </Formik>
+        <Typography
+          style={{marginTop:50}}
+          variant="body2"
+          align="center"
+        >
+          <Link to="/signup" className={classes.signup}>
+            New user? Sign up here.
+          </Link>
+        </Typography>
+      </div>
       <div className={classes.description}>
         <div className={classes.bgImageWrapper}>
           <img className={classes.bgImage} alt="Background" src='https://om-exchange-production.s3.amazonaws.com/assets/images/background-microscope.jpg'/>
@@ -394,41 +377,40 @@ export default function CPLoinForm({
               </Card>
               <h5 className={classes.bottomLeftLabel}>promotion</h5>
             </div>
-              <div className={classes.card}>
-                <Card className={toggleSelect? classes.cardRightRoot : classes.cardRightRootActive}>
-                  <CardContent style={{padding:2}}>
-                    <Typography variant="h2">
-                      Lizard
-                    </Typography>
-                    <Divider/>
-                    <div style={{display:'flex', textAlign:'left'}}>
-                      <img className = {classes.adImg} src="https://www.openmarketshealth.com/uploads/posts/cover-images/surgicaldirectlogo.jpg" alt="cardRightImage"/>
-                      <Divider orientation="vertical" flexItem/>
-                      <Typography variant="subtitle2" style={{padding:'8px 10px'}}>
-                        Lizards are a widespread group of squamate reptiles, with over 6,000 species.
-                        <Typography>
-                          <Link to ="#" className={classes.inlineLink}>
-                            Order N95s, Nitrile Gloves, and more
-                          </Link>
-                        </Typography>
+            <div className={classes.card}>
+              <Card className={toggleSelect? classes.cardRightRoot : classes.cardRightRootActive}>
+                <CardContent style={{padding:2}}>
+                  <Typography variant="h2">
+                    Lizard
+                  </Typography>
+                  <Divider/>
+                  <div style={{display:'flex', textAlign:'left'}}>
+                    <img className = {classes.adImg} src="https://www.openmarketshealth.com/uploads/posts/cover-images/surgicaldirectlogo.jpg" alt="cardRightImage"/>
+                    <Divider orientation="vertical" flexItem/>
+                    <Typography variant="subtitle2" style={{padding:'8px 10px'}}>
+                      Lizards are a widespread group of squamate reptiles, with over 6,000 species.
+                      <Typography>
+                        <Link to ="#" className={classes.inlineLink}>
+                          Order N95s, Nitrile Gloves, and more
+                        </Link>
                       </Typography>
-                    </div>
-                  </CardContent>
-                </Card>
-                <h5 className={classes.bottomRightLabel}>promotion</h5>
-              </div>
-              <div className={classes.stepper}>
-                <li className={classes.sideBarItem}>
-                  <label className ={clsx(classes.sliderLabel,toggleSelect? classes.chageColor : '')} style={{marginRight:6}} onClick={onChangeView}> </label>
-                </li>
-                <li className={classes.sideBarItem}>
-                  <label className ={clsx(classes.sliderLabel,toggleSelect? '' : classes.chageColor)} onClick={onChangeView}> </label>
-                </li>
-              </div>
+                    </Typography>
+                  </div>
+                </CardContent>
+              </Card>
+              <h5 className={classes.bottomRightLabel}>promotion</h5>
+            </div>
+            <div className={classes.stepper}>
+              <li className={classes.sideBarItem}>
+                <label className ={clsx(classes.sliderLabel,toggleSelect? classes.chageColor : '')} style={{marginRight:6}} onClick={onChangeView}> </label>
+              </li>
+              <li className={classes.sideBarItem}>
+                <label className ={clsx(classes.sliderLabel,toggleSelect? '' : classes.chageColor)} onClick={onChangeView}> </label>
+              </li>
+            </div>
           </div>
         </div>
       </div>
     </div>
-
   )
 }
